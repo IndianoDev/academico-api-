@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import Pagina from '../../components/Pagina'
 import { useForm } from "react-hook-form";
@@ -7,17 +7,36 @@ import Link from 'next/link';
 import { BiSave } from 'react-icons/bi'
 import { BsArrowLeft } from 'react-icons/bs'
 
+
+
 const form = () => {
 
-  const { push } = useRouter()
-  const { register, handleSubmit } = useForm()
+
+  const { query } = useRouter()
+  const { register, handleSubmit, setValue } = useForm()
+ 
+  useEffect(() => {
+
+    if(query.id){
+    const cursos = JSON.parse(window.localStorage.getItem('cursos')) || []
+    const curso = cursos[query.id]
+
+    setValue('nome', curso.nome)
+    setValue('Duracao', curso.Duracao)
+    setValue('modalidade', curso.presencial)
+    
+   
+    }
+  }, [query.id])
+
+  
+  
 
 
   function salvar(dados) {
     const cursos = JSON.parse (window.localStorage.getItem ('cursos')) || []
     cursos.push(dados)
     window.localStorage.setItem('cursos', JSON.stringify(cursos))
-    push('/cursos')
     
 
   }
