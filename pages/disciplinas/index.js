@@ -6,33 +6,35 @@ import { AiOutlinePlus } from 'react-icons/Ai'
 import { BsFillTrash3Fill } from 'react-icons/Bs'
 import { FaPaintBrush } from 'react-icons/Fa'
 import Link from 'next/link'
+import axios from 'axios'
 
 
 const index = () => {
 
-  const [cursos, setCursos] = useState([])
+  const [disciplinas, setDisciplinas] = useState([])
 
   useEffect(() => {
-    setCursos(getAll())
-
+    getAll()
   }, [])
 
   function getAll() {
-    return JSON.parse(window.localStorage.getItem('cursos')) || []
+    axios.get('/api/disciplinas').then(resultado => {
+      setDisciplinas(resultado.data);
+    })
   }
+
   function excluir(id) {
-    if (confirm('Deseja realmente excluir o registro?')) {
-      const itens = getAll()
-      itens.splice(id, 1)
-      window.localStorage.setItem('cursos', JSON.stringify(itens))
-      setCursos(itens)
-    }
+    if (confirm('Deseja realmente deletar?'))
+      axios.delete('/api/disciplinas/' + id)
+    getAll()
   }
+
+
   return (
-    <Pagina titulo='Cursos'>
+    <Pagina titulo='Disciplinas'>
 
 
-      <Button href="/cursos/form" variant="primary mb-3" >Novo <AiOutlinePlus /> </Button>{' '}
+      <Button href="/disciplinas/form" variant="primary mb-3" >Novo <AiOutlinePlus /> </Button>{' '}
 
 
 
@@ -42,25 +44,20 @@ const index = () => {
 
             <th>Editar | Excluir</th>
             <th className='text-center'>Nome</th>
-            <th className='text-center'>Duracao</th>
-            <th className='text-center'>Modalidade</th>
+            <th className='text-center'>curso</th>
           </tr>
         </thead>
         <tbody>
-          {cursos.map((item, i) => (
+          {disciplinas.map((item, i) => (
             <tr key={item.id}>
-              
               <td>
-                <Link href={'/cursos/' + item.id}> 
-                <Button variant='light'>< FaPaintBrush onClick={() => (i)} className='text-primary' /> </Button>
+                <Link href={'/disciplinas/' + item.id}>
+                  <Button variant='light'>< FaPaintBrush className='text-primary' /> </Button>
                 </Link>
-                {''}
-               
                 <Button variant='light'>< BsFillTrash3Fill onClick={() => excluir(item.id)} className='text-danger' /> </Button>
               </td>
               <td>{item.nome}</td>
-              <td>{item.duracao}</td>
-              <td>{item.modalidade}</td>
+              <td>{item.curso}</td>
             </tr>
           ))}
 

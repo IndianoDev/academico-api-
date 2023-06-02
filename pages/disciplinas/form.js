@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { BiSave } from 'react-icons/bi'
 import { BsArrowLeft } from 'react-icons/bs'
+import axios from 'axios'
+
 
 const form = () => {
 
@@ -15,35 +17,28 @@ const form = () => {
 
 
   function salvar(dados) {
-    const cursos = JSON.parse (window.localStorage.getItem ('cursos')) || []
-    cursos.push(dados)
-    window.localStorage.setItem('cursos', JSON.stringify(cursos))
-    push('/cursos')
-    
+    axios.post('/api/disciplinas', dados)
+    push('/disciplinas')
 
+    
   }
 
   return (
 
 
-
-    <Pagina titulo='Formulario'>
+    <Pagina titulo='Disciplina'>
       <Form>
         <Form.Group className="mb-3" controlId="nome">
           <Form.Label>Nome:</Form.Label>
           <Form.Control type="text" {...register('nome')} />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="duracao">
-          <Form.Label>Duracao:</Form.Label>
-          <Form.Control type="text" {...register('duracao')} />
+        <Form.Group className="mb-3" controlId="curso">
+          <Form.Label>Curso:</Form.Label>
+          <Form.Control type="text" {...register('curso')} />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="modalidade">
-          <Form.Label>modalidade:</Form.Label>
-          <Form.Control type="text" {...register('modalidade')} />
-        </Form.Group>
-
+        
 <div className='text-center'>
 
 
@@ -67,3 +62,6 @@ const form = () => {
 }
 
 export default form
+
+
+

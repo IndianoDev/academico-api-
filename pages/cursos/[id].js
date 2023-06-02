@@ -12,7 +12,7 @@ import { BsArrowLeft } from 'react-icons/bs'
 const form = () => {
 
 
-  const { query } = useRouter()
+  const { push, query } = useRouter()
   const { register, handleSubmit, setValue } = useForm()
  
   useEffect(() => {
@@ -20,6 +20,12 @@ const form = () => {
     if(query.id){
     const cursos = JSON.parse(window.localStorage.getItem('cursos')) || []
     const curso = cursos[query.id]
+
+      for(let atributo in curso){
+        setValue(atributo, curso[atributo])
+
+       
+      }
 
     setValue('nome', curso.nome)
     setValue('Duracao', curso.Duracao)
@@ -35,7 +41,7 @@ const form = () => {
 
   function salvar(dados) {
     const cursos = JSON.parse (window.localStorage.getItem ('cursos')) || []
-    cursos.push(dados)
+    cursos.splice(query.id, 1, dados)
     window.localStorage.setItem('cursos', JSON.stringify(cursos))
     
 
