@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { BiSave } from 'react-icons/bi'
-import { BsArrowLeft } from 'react-icons/bs'
+
 
 
 
@@ -73,7 +73,7 @@ const form = () => {
 
 
   <Link className="ms-2 btn btn-danger" href="/cursos" >
-         <BsArrowLeft className="me-2" />
+         <BiSave  className="me-2" />
           Voltar
         </Link>
 

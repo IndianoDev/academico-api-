@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { BiSave } from 'react-icons/bi'
-
+import { BsArrowLeft } from 'react-icons/bs'
 
 const form = () => {
 
@@ -15,10 +15,10 @@ const form = () => {
 
 
   function salvar(dados) {
-    const cursos = JSON.parse (window.localStorage.getItem ('cursos')) || []
+    const cursos = JSON.parse (window.localStorage.getItem ('semestres')) || []
     cursos.push(dados)
-    window.localStorage.setItem('cursos', JSON.stringify(cursos))
-    push('/cursos')
+    window.localStorage.setItem('semestres', JSON.stringify(cursos))
+    push('/semestres')
     
 
   }
@@ -34,22 +34,22 @@ const form = () => {
           <Form.Control type="text" {...register('nome')} />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="duracao">
-          <Form.Label>Duracao:</Form.Label>
-          <Form.Control type="text" {...register('duracao')} />
+        <Form.Group className="mb-3" controlId="data_de_inicio">
+          <Form.Label>Data_de_inicio:</Form.Label>
+          <Form.Control type="text" {...register('data_de_inicio')} />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="modalidade">
-          <Form.Label>modalidade:</Form.Label>
-          <Form.Control type="text" {...register('modalidade')} />
+        <Form.Group className="mb-3" controlId="data_de_fim">
+          <Form.Label>data_de_fim:</Form.Label>
+          <Form.Control type="text" {...register('data_de_inicio')} />
         </Form.Group>
 
 <div className='text-center'>
 
 
 
-  <Link className="ms-2 btn btn-danger" href="/cursos" >
-         <BiSave  className="me-2" />
+  <Link className="ms-2 btn btn-danger" href="/semestres" >
+         <BsArrowLeft className="me-2" />
           Voltar
         </Link>
 

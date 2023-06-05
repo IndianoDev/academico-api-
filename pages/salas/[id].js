@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { BiSave } from 'react-icons/bi'
-import axios from 'axios';
+
 
 
 
@@ -18,10 +18,10 @@ const form = () => {
   useEffect(() => {
 
     if (query.id) {
-      axios.get('/api/disciplinas/' + query.id).then(resultado => {
-        const disciplina = resultado.data
-        for (let atributo in disciplina) {
-          setValue(atributo, disciplina[atributo])
+      axios.get('/api/salas/' + query.id).then(resultado => {
+        const sala = resultado.data
+        for (let atributo in sala) {
+          setValue(atributo, sala[atributo])
         }
       })
     }
@@ -30,8 +30,8 @@ const form = () => {
 
 
   function salvar(dados) {
-   axios.get('/api/disciplinas/' + query.id, dados)
-    push('/diciplinas')
+    axios.get('/api/salas/' + query.id, dados)
+    push('/salas')
 
   }
 
@@ -39,17 +39,22 @@ const form = () => {
 
 
 
-    <Pagina titulo='Disciplinas'>
-      <Form>
-        <Form.Group className="mb-3" controlId="nome">
-          <Form.Label>Nome:</Form.Label>
-          <Form.Control type="text" {...register('nome')} />
-        </Form.Group>
+    <Pagina titulo='Formulario'>
+    <Form>
+      <Form.Group className="mb-3" controlId="nome">
+        <Form.Label>Nome:</Form.Label>
+        <Form.Control type="text" {...register('nome')} />
+      </Form.Group>
 
-        <Form.Group className="mb-3" controlId="curso">
-          <Form.Label>Curso:</Form.Label>
-          <Form.Control type="text" {...register('duracao')} />
-        </Form.Group>
+      <Form.Group className="mb-3" controlId="capacidade">
+        <Form.Label>Capacidade:</Form.Label>
+        <Form.Control type="text" {...register('capacidade')} />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="tipo">
+        <Form.Label>Tipo:</Form.Label>
+        <Form.Control type="text" {...register('tipo')} />
+      </Form.Group>
 
 
 

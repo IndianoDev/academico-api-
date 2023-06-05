@@ -12,13 +12,12 @@ const Cabecalho = () => {
           <Navbar.Brand href="#">
            </Navbar.Brand>
           <Nav className="me-auto">
-            <Link className='nav-link' href="/ursos">Cursos</Link>
+            <Link className='nav-link' href="/cursos">Cursos</Link>
             <Link className='nav-link' href="/disciplinas">Disciplinas</Link>
-            <Link className='nav-link' href="/Alunos">Alunos</Link>
-            <Link className='nav-link' href="/Professores">Professores</Link>
-            <Link className='nav-link' href="/Turmas">Turmas</Link>
-            <Link className='nav-link' href="/Series">Series</Link>
-            <Link className='nav-link' href="/Semestres">Semestres</Link>
+            <Link className='nav-link' href="/alunos">Alunos</Link>
+            <Link className='nav-link' href="/professores">Professores</Link>
+            <Link className='nav-link' href="/salas">Salas</Link>
+            <Link className='nav-link' href="/semestres">Semestres</Link>
           </Nav>
         </Container>
       </Navbar>
