@@ -19,7 +19,7 @@ const form = () => {
 
     if(query.id){
     const cursos = JSON.parse(window.localStorage.getItem('cursos')) || []
-    const curso = cursos[query.id]
+    const sala = cursos[query.id]
 
       for(let atributo in curso){
         setValue(atributo, curso[atributo])
@@ -27,9 +27,9 @@ const form = () => {
        
       }
 
-    setValue('nome', curso.nome)
-    setValue('Duracao', curso.Duracao)
-    setValue('modalidade', curso.presencial)
+    setValue('nome', sala.nome)
+    setValue('Duracao', sala.Duracao)
+    setValue('modalidade', sala.presencial)
     
    
     }
@@ -40,9 +40,9 @@ const form = () => {
 
 
   function salvar(dados) {
-    const cursos = JSON.parse (window.localStorage.getItem ('cursos')) || []
-    cursos.splice(query.id, 1, dados)
-    window.localStorage.setItem('cursos', JSON.stringify(cursos))
+    const salas = JSON.parse (window.localStorage.getItem ('salas')) || []
+    salas.splice(query.id, 1, dados)
+    window.localStorage.setItem('salas', JSON.stringify(salas))
     
 
   }

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { BiSave } from 'react-icons/bi'
-import { BsArrowLeft } from 'react-icons/bs'
+
 
 const form = () => {
 
@@ -31,17 +31,27 @@ const form = () => {
       <Form>
         <Form.Group className="mb-3" controlId="nome">
           <Form.Label>Nome:</Form.Label>
-          <Form.Control type="text" {...register('nome')} />
+          <Form.Control isInvalid={errors.nome} type="text" {...register('nome', cursoValidator.nome)} />
+          {
+             errors.nome &&
+            <small className='mt-1 '>{errors.nome.message}</small>
+          }
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="capacidade">
           <Form.Label>Capacidade:</Form.Label>
-          <Form.Control type="text" {...register('capacidade')} />
+          <Form.Control isInvalid={errors.capacidade} type="text" {...register('capacidade', cursoValidator.capacidade)} />
+          {
+             errors.capacidade &&
+            <small className='mt-1 '>{errors.capacidade.message}</small>
+          }
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="tipo">
           <Form.Label>Tipo:</Form.Label>
-          <Form.Control type="text" {...register('tipo')} />
+          <Form.Control isInvalid={errors.tipo} type="text"{...register('tipo', cursoValidator.tipo)} />
+          {
+             errors.tipo &&
+            <small className='mt-1 '>{errors.tipo.message}</small>
+          }
         </Form.Group>
 
 <div className='text-center'>
@@ -49,7 +59,7 @@ const form = () => {
 
 
   <Link className="ms-2 btn btn-danger" href="/salas" >
-         <BsArrowLeft className="me-2" />
+         <BiSave className="me-2" />
           Voltar
         </Link>
 

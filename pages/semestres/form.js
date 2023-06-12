@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { BiSave } from 'react-icons/bi'
-import { BsArrowLeft } from 'react-icons/bs'
 
 const form = () => {
 
@@ -31,17 +30,27 @@ const form = () => {
       <Form>
         <Form.Group className="mb-3" controlId="nome">
           <Form.Label>Nome:</Form.Label>
-          <Form.Control type="text" {...register('nome')} />
+          <Form.Control isInvalid={errors.nome} type="text" {...register('nome', cursoValidator.nome)} />
+          {
+             errors.nome &&
+            <small className='mt-1 '>{errors.nome.message}</small>
+          }
         </Form.Group>
-
-        <Form.Group className="mb-3" controlId="data_de_inicio">
-          <Form.Label>Data_de_inicio:</Form.Label>
-          <Form.Control type="text" {...register('data_de_inicio')} />
+        <Form.Group className="mb-3" controlId="datainicio">
+          <Form.Label>Data inicio:</Form.Label>
+          <Form.Control isInvalid={errors.datainicio} type="text" {...register('datainicio', cursoValidator.datainicio)} />
+          {
+             errors.datainicio &&
+            <small className='mt-1 '>{errors.datainicio.message}</small>
+          }
         </Form.Group>
-
-        <Form.Group className="mb-3" controlId="data_de_fim">
-          <Form.Label>data_de_fim:</Form.Label>
-          <Form.Control type="text" {...register('data_de_inicio')} />
+        <Form.Group className="mb-3" controlId="datafim">
+          <Form.Label>Data fim:</Form.Label>
+          <Form.Control isInvalid={errors.datafim} type="text"{...register('datafim', cursoValidator.datafim)} />
+          {
+             errors.datafim &&
+            <small className='mt-1 '>{errors.datafim.message}</small>
+          }
         </Form.Group>
 
 <div className='text-center'>
@@ -49,7 +58,7 @@ const form = () => {
 
 
   <Link className="ms-2 btn btn-danger" href="/semestres" >
-         <BsArrowLeft className="me-2" />
+         <BBiSave className="me-2" />
           Voltar
         </Link>
 

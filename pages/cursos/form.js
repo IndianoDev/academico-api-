@@ -10,7 +10,7 @@ import { BiSave } from 'react-icons/bi'
 const form = () => {
 
   const { push } = useRouter()
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, formState:{errors}} = useForm()
 
 
 
@@ -25,45 +25,47 @@ const form = () => {
 
   return (
 
+    <Pagina titulo='Formulário'>
+    <Form>
+      <Form.Group className="mb-3" controlId="nome">
+        <Form.Label>Nome:</Form.Label>
+        <Form.Control isInvalid={errors.nome} type="text" {...register('nome', cursoValidator.nome)} />
+        {
+           errors.nome &&
+          <small className='mt-1 '>{errors.nome.message}</small>
+        }
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="duracao">
+        <Form.Label>Duração:</Form.Label>
+        <Form.Control isInvalid={errors.duracao} type="text" {...register('duracao', cursoValidator.duracao)} />
+        {
+           errors.duracao &&
+          <small className='mt-1'>{errors.duracao.message}</small>
+        }
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="modalidade">
+        <Form.Label>Modalidade:</Form.Label>
+        <Form.Control isInvalid={errors.modalidade} type="text"{...register('modalidade', cursoValidator.modalidade)} />
+        {
+           errors.modalidade &&
+          <small className='mt-1'>{errors.modalidade.message}</small>
+        }
+      </Form.Group>
 
-
-    <Pagina titulo='Formulario'>
-      <Form>
-        <Form.Group className="mb-3" controlId="nome">
-          <Form.Label>Nome:</Form.Label>
-          <Form.Control type="text" {...register('nome')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="duracao">
-          <Form.Label>Duracao:</Form.Label>
-          <Form.Control type="text" {...register('duracao')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="modalidade">
-          <Form.Label>modalidade:</Form.Label>
-          <Form.Control type="text" {...register('modalidade')} />
-        </Form.Group>
-
-<div className='text-center'>
-
-
-
-  <Link className="ms-2 btn btn-danger" href="/cursos" >
-         <BiSave  className="me-2" />
-          Voltar
+      <div className='text-center'>
+        <Link className=' btn btn-danger' href='/cursos'>
+        <BiSave className='me-2'/>
+        Voltar
         </Link>
-
-        <Button variant="success" className='ms-2' onClick={handleSubmit(salvar)}>
-        <BiSave className="me-2" />
-          Salvar
-          
+        <Button variant='primary'  className='ms-2' onClick={handleSubmit(salvar)}>
+        <BiSave className='me-2'/>
+        Salvar
         </Button>
-       
-  </div>
-      </Form>
+      </div>
 
-    </Pagina>
-  )
+    </Form>
+  </Pagina>
+)
 }
 
 export default form

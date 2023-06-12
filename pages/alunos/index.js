@@ -1,104 +1,83 @@
-import React, { useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
-import Pagina from '../../components/Pagina'
-import { useForm } from "react-hook-form";
+import Pagina from '@/components/Pagina'
 import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
+import { Button, Table } from 'react-bootstrap'
+import { BiPlusCircle } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 import Link from 'next/link';
-import { BiSave } from 'react-icons/bi'
+const index = () => {
 
-const form = () => {
+  const [alunos, Setalunos] = useState([])
 
-  const { push } = useRouter()
-  const { register, handleSubmit } = useForm()
+  useEffect(() => {
+    Setalunos(getAll())
 
+  }, [])
 
-
-  function salvar(dados) {
-    const alunos = JSON.parse (window.localStorage.getItem ('alunos')) || []
-    alunos.push(dados)
-    window.localStorage.setItem('alunos', JSON.stringify(alunos))
-    push('/alunos')
-    
-
+  function getAll() {
+    return JSON.parse(window.localStorage.getItem('alunos')) || []
   }
 
+  function excluir(id) {
+    if (confirm('Deseja realmente excluir o registro?')) {
+      const itens = getAll()
+      itens.splice(id, 1)
+      window.localStorage.setItem('alunos', JSON.stringify(itens))
+      Setalunos(itens)
+    }
+  }
   return (
+    <Pagina titulo='Alunos'>
+
+      <Button href='/alunos/form' variant="dark mb-3"  >Novo <BiPlusCircle /></Button>{' '}
+
+      <Table striped bordered hover className='text-center'>
+        <thead>
+          <tr>
+            <th>Alterar/Excluir</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Matricula</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th>CEP</th>
+            <th>Logradouro</th>
+            <th>Complemento</th>
+            <th>Número</th>
+            <th>Bairro</th>
+            
+          </tr>
+        </thead>
+        <tbody>
 
 
+          {alunos.map((item, i) => (
+            <tr key={i}>
+              <td>
+                <Link href={'/alunos/' + i}>
+                <Button variant='light' className='ms-2'><AiFillEdit  className="primary" /></Button>
+                </Link>
+                <Button variant='light' className='ms-2' ><AiFillDelete onClick={() => excluir(i)} className="text-danger" /></Button></td>
+              <td>{item.nome}</td>
+              <td>{item.cpf}</td>
+              <td>{item.matricula}</td>
+              <td>{item.email}</td>
+              <td>{item.telefone}</td>
+              <td>{item.cep}</td>
+              <td>{item.logradouro}</td>
+              <td>{item.complemento}</td>
+              <td>{item.numero}</td>
+              <td>{item.bairro}</td>
+            </tr>
+          ))}
 
-    <Pagina titulo='Formulario Aluno'>
-      <Form>
-        <Form.Group className="mb-3" controlId="nome">
-          <Form.Label>*Nome:</Form.Label>
-          <Form.Control type="text" {...register('nome')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="cpf">
-          <Form.Label>*CPF:</Form.Label>
-          <Form.Control type="text" {...register('cpf')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="matricula">
-          <Form.Label>*Matricula:</Form.Label>
-          <Form.Control type="text" {...register('matricula')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control type="text" {...register('email')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="telefone">
-          <Form.Label>Telefone:</Form.Label>
-          <Form.Control type="text" {...register('telefone')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="cep">
-          <Form.Label>CEP:</Form.Label>
-          <Form.Control type="text" {...register('cep')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="logradouro">
-          <Form.Label>Logradouro:</Form.Label>
-          <Form.Control type="text" {...register('logradouro')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="complemento">
-          <Form.Label>Complemento:</Form.Label>
-          <Form.Control type="text" {...register('complemento')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="numero">
-          <Form.Label>Numero:</Form.Label>
-          <Form.Control type="text" {...register('numero')} />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="bairro">
-          <Form.Label>Bairro:</Form.Label>
-          <Form.Control type="text" {...register('bairro')} />
-        </Form.Group>
+        </tbody>
 
 
-<div className='text-center'>
-
-
-
-  <Link className="ms-2 btn btn-danger" href="/semestres" >
-         <BiSave className="me-2" />
-          Voltar
-        </Link>
-
-        <Button variant="success" className='ms-2' onClick={handleSubmit(salvar)}>
-        <BiSave className="me-2" />
-          Salvar
-          
-        </Button>
-       
-  </div>
-      </Form>
-
+      </Table>
     </Pagina>
   )
 }
 
-export default form
+export default index

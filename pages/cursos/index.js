@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'react-bootstrap'
 import Pagina from '../../components/Pagina'
-import { AiOutlinePlus } from 'react-icons/Ai'
+import { AiOutlinePlus } from 'react-icons/ai'
 import { BsFillTrash3Fill } from 'react-icons/Bs'
 import { FaPaintBrush } from 'react-icons/Fa'
 import Link from 'next/link'
